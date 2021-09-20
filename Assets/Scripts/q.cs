@@ -8,15 +8,7 @@ using Yashlan.shoot;
 
 namespace Yashlan.manage
 {
-    public enum GameState
-    {
-        Ready,
-        Start,
-        Win,
-        Lose
-    }
-
-    public class GameManager : MonoBehaviour
+    public class q : MonoBehaviour
     {
         [SerializeField]
         private GameState _gameState;
@@ -113,4 +105,3 @@ namespace Yashlan.manage
         }
     }
 }
-
