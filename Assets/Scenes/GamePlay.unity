@@ -726,7 +726,6 @@ GameObject:
   - component: {fileID: 959920440}
   - component: {fileID: 959920442}
   - component: {fileID: 959920441}
-  - component: {fileID: 959920439}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -734,33 +733,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &959920439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 959920438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b15442db044f7e241a95b405f1f5c4aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gameState: 0
-  _tapCollider: {fileID: 959920441}
-  _slingShooter: {fileID: 578438792}
-  _trailController: {fileID: 89746724}
-  _isGameEnded: 0
-  _birds:
-  - {fileID: 1337334594}
-  - {fileID: 1190969304}
-  - {fileID: 644301422}
-  - {fileID: 1130333270}
-  _enemies:
-  - {fileID: 7110488304401925261}
-  - {fileID: 371836528}
-  - {fileID: 1217272288}
-  - {fileID: 1063783038}
 --- !u!4 &959920440
 Transform:
   m_ObjectHideFlags: 0
