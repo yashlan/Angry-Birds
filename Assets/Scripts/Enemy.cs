@@ -1,43 +1,60 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using Yashlan.manage;
 
 namespace Yashlan.enemy 
 {
     public class Enemy : MonoBehaviour
     {
         [SerializeField]
+        private GameObject _destroyEffect;
+        [SerializeField]
         private float _health;
+
+        private bool _isHit = false;
 
         public UnityAction<GameObject> OnEnemyDestroyed = delegate { };
 
-        private bool _isHit = false;
+        public bool IsHit 
+        { 
+            get => _isHit; 
+            set => _isHit = value; 
+        }
 
         void OnDestroy()
         {
             if (_isHit)
             {
+                Instantiate(_destroyEffect, transform.position, Quaternion.identity);
                 OnEnemyDestroyed(gameObject);
             }
         }
 
         void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.GetComponent<Rigidbody2D>() == null) return;
-
-            if (collision.gameObject.tag == "Bird")
+            if(GameManager.Instance.GameState == GameState.Start)
             {
-                _isHit = true;
-                Destroy(gameObject);
-            }
-            else if (collision.gameObject.tag == "Obstacle")
-            {
-                float damage = collision.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude * 10;
-                _health -= damage;
+                if (collision.gameObject.GetComponent<Rigidbody2D>() == null) return;
 
-                if (_health <= 0)
+                var tag = collision.gameObject.tag;
+
+                if (tag == "Bird")
                 {
                     _isHit = true;
                     Destroy(gameObject);
+                }
+                else if (tag == "Obstacle")
+                {
+                    float damage = collision.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude * 10;
+                    _health -= damage;
+
+                    GameManager.Instance.AddScore((int)damage);
+
+                    if (_health <= 0)
+                    {
+                        _isHit = true;
+                        Destroy(gameObject);
+                    }
                 }
             }
         }

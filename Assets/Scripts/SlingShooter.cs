@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Yashlan.bird;
+using Yashlan.manage;
 
 namespace Yashlan.shoot
 {
@@ -17,37 +18,40 @@ namespace Yashlan.shoot
         private Bird _bird;
         private Vector2 _startPos;
 
-        void Start()
-        {
-            _startPos = transform.position;
-        }
+        void Start() => _startPos = transform.position;
 
         void OnMouseUp()
         {
-            _circleCollider2D.enabled = false;
-            Vector2 velocity = _startPos - (Vector2)transform.position;
-            float distance = Vector2.Distance(_startPos, transform.position);
-            _bird.Shoot(velocity, distance, _throwSpeed);
-            gameObject.transform.position = _startPos;
-            _trajectory.enabled = false;
+            if(GameManager.Instance.GameState == GameState.Start)
+            {
+                _circleCollider2D.enabled = false;
+                Vector2 velocity = _startPos - (Vector2)transform.position;
+                float distance = Vector2.Distance(_startPos, transform.position);
+                _bird.Shoot(velocity, distance, _throwSpeed);
+                gameObject.transform.position = _startPos;
+                _trajectory.enabled = false;
+            }
         }
 
         void OnMouseDrag()
         {
-            Vector2 p = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 dir = p - _startPos;
+            if(GameManager.Instance.GameState == GameState.Start)
+            {
+                Vector2 p = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 dir = p - _startPos;
 
-            if (dir.sqrMagnitude > _radius)
-                dir = dir.normalized * _radius;
+                if (dir.sqrMagnitude > _radius)
+                    dir = dir.normalized * _radius;
 
-            transform.position = _startPos + dir;
+                transform.position = _startPos + dir;
 
-            float distance = Vector2.Distance(_startPos, transform.position);
+                float distance = Vector2.Distance(_startPos, transform.position);
 
-            if (!_trajectory.enabled)
-                _trajectory.enabled = true;
+                if (!_trajectory.enabled)
+                    _trajectory.enabled = true;
 
-            DisplayTrajectory(distance);
+                DisplayTrajectory(distance);
+            }
         }
 
         public void InitiateBird(Bird bird)

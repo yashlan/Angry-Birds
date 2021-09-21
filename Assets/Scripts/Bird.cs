@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using Yashlan.audio;
 
 namespace Yashlan.bird
 {
@@ -8,18 +9,26 @@ namespace Yashlan.bird
     {
         public enum BirdState { Idle, Thrown, HitSomething }
         [SerializeField]
+        private BirdState _state;
+        [SerializeField]
+        private GameObject _smokeEffect;
+        [SerializeField]
         private Rigidbody2D _rigidBody;
         [SerializeField]
         private CircleCollider2D _circleCollider2D;
 
-        private BirdState _state;
         private float _minVelocity = 0.05f;
         private bool _flagDestroy = false;
 
         public UnityAction OnBirdDestroyed = delegate { };
         public UnityAction<Bird> OnBirdShot = delegate { };
-        public BirdState State => _state;
+        public BirdState State
+        {
+            get => _state;
+            set => _state = value;
+        }
         public Rigidbody2D Rigidbody => _rigidBody;
+        public GameObject SmokeEffect => _smokeEffect;
 
         void Start()
         {
@@ -45,17 +54,23 @@ namespace Yashlan.bird
 
         void OnDestroy()
         {
-            if (_state == BirdState.Thrown || _state == BirdState.HitSomething) OnBirdDestroyed();
+            if (_state == BirdState.Thrown || _state == BirdState.HitSomething)
+            {
+                Instantiate(_smokeEffect, transform.position, Quaternion.identity);
+                OnBirdDestroyed();
+            }
         }
 
-        void OnCollisionEnter2D(Collision2D collision)
+        void OnCollisionEnter2D(Collision2D collision) 
         {
             _state = BirdState.HitSomething;
+            AudioManager.Instance.PlaySFX(AudioManager.BIRD_HIT_SFX);
         }
 
         private IEnumerator DestroyAfter(float second)
         {
             yield return new WaitForSeconds(second);
+            if(_state == BirdState.HitSomething) OnHitSomething();
             Destroy(gameObject);
         }
 
@@ -67,12 +82,16 @@ namespace Yashlan.bird
 
         public void Shoot(Vector2 velocity, float distance, float speed)
         {
+            AudioManager.Instance.PlaySFX(AudioManager.BIRD_LAUNCH_SFX);
             _circleCollider2D.enabled = true;
             _rigidBody.bodyType = RigidbodyType2D.Dynamic;
             _rigidBody.velocity = velocity * speed * distance;
             OnBirdShot(this);
         }
 
-        public virtual void OnTap() { }
+        public virtual void OnTap() { /*Do nothing*/ }
+
+        public virtual void OnHitSomething() { /*Do nothing*/ }
+
     }
 }

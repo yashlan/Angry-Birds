@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4621e82dff1828042a2fae74404e64b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _parent: {fileID: 0}
+  _smokeEffect: {fileID: 100000, guid: 83cd9cc9f9c88824ba18dc59b05ae328, type: 3}
   _rigidBody: {fileID: 8563322396765753177}
   _circleCollider2D: {fileID: 8563322396765753176}
 --- !u!50 &8563322396765753177
