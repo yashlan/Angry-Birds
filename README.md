@@ -20,3 +20,6 @@ Gunakan burung untuk membunuh semua babi menggunakan Ketapel untuk memenangkan g
 
 ## ScreenShoot
 ![](https://github.com/yashlan/Angry-Birds/blob/main/ss/ss1.gif)
+
+## How To Play
+Extract File Export Here.rar kemudian jalankan file .exe nya
