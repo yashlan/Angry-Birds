@@ -13,10 +13,10 @@
  - ada 5 Scene/5 Level
  - wood bisa ke destroy
  - menambahkan Brown Bird : burung bisa meledak ketika menyentuh sesuatu
- - menambahkan Blue Bird  : burung bisa spawn menjadi 3 ketika layar di tap
+ - menambahkan Blue Bird  : burung bisa spawn menjadi 3 ketika layar di klik
 
 ## Gameplay
-Gunakan burung untuk membunuh semua babi menggunakan Ketapel untuk memenangkan game ini, pada level 1 sampai 4 anda hanya diberi 3 burung, di level 5 anda diberi 5 burung.
+Lempar burung menggunakan ketapel dan arahkan ke babi. bunuh semua babi untuk memenangkan game ini, pada level 1 sampai 4 anda hanya diberi 3 burung, di level 5 anda diberi 5 burung.
 
 ## ScreenShoot
 ![](https://github.com/yashlan/Angry-Birds/blob/main/ss/ss1.gif)
