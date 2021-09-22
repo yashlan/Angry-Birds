@@ -56,6 +56,7 @@ namespace Yashlan.bird
         {
             if (_state == BirdState.Thrown || _state == BirdState.HitSomething)
             {
+                AudioManager.Instance.PlaySFX(AudioManager.BIRD_DIE_SFX);
                 Instantiate(_smokeEffect, transform.position, Quaternion.identity);
                 OnBirdDestroyed();
             }

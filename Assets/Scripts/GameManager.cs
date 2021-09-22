@@ -29,6 +29,8 @@ namespace Yashlan.manage
 
         [Header("UI")]
         [SerializeField]
+        private Canvas _canvas;
+        [SerializeField]
         private GameObject _panelInfoLevel;
         [SerializeField]
         private GameObject _panelInfoGame;
@@ -71,6 +73,7 @@ namespace Yashlan.manage
 
         private IEnumerator InitStartGame()
         {
+            _canvas.gameObject.SetActive(true);
             _panelInfoLevel.SetActive(true);
             _textLevelGame.text = SceneManager.GetActiveScene().name;
             yield return new WaitForSeconds(2f);
@@ -135,7 +138,7 @@ namespace Yashlan.manage
                     _shotBird = _birds[0];
                 }
 
-                Invoke(nameof(CheckGameEnd), 1f);
+                Invoke(nameof(CheckGameEnd), 2f);
             }
         }
 
@@ -154,9 +157,9 @@ namespace Yashlan.manage
         private void CheckGameEnd()
         {
             if (_enemies.Count == 0)
-                this.Invoke(() => SetGameState(GameState.Win), 1f);
+                this.CustomInvoke(() => SetGameState(GameState.Win), 1f);
             else if (_enemies.Count > 0 && _birds.Count == 0)
-                this.Invoke(() => SetGameState(GameState.Lose), 1f);
+                this.CustomInvoke(() => SetGameState(GameState.Lose), 1f);
         }
 
         private void SetGameState(GameState gameState)
@@ -172,32 +175,9 @@ namespace Yashlan.manage
 
         private void SetReward()
         {
-            switch (_birds.Count)
-            {
-                case 0:
-                    AddScore(1000);
-                    break;
-                case 1:
-                    AddScore(5000);
-                    break;
-                case 2:
-                    AddScore(10000);
-                    break;
-            }
-        }
-    }
-
-    public static class InvokeUtility
-    {
-        public static void Invoke(this MonoBehaviour mb, System.Action action, float delay)
-        {
-            mb.StartCoroutine(InvokeRoutine(action, delay));
-        }
-
-        private static IEnumerator InvokeRoutine(System.Action action, float delay)
-        {
-            yield return new WaitForSeconds(delay);
-            action();
+            if(_birds.Count == 0) AddScore(1000);
+            if(_birds.Count == 1) AddScore(5000);
+            if(_birds.Count >= 2) AddScore(10000);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using Yashlan.audio;
 using Yashlan.manage;
 
 namespace Yashlan.enemy 
@@ -41,6 +42,7 @@ namespace Yashlan.enemy
                 if (tag == "Bird")
                 {
                     _isHit = true;
+                    AudioManager.Instance.PlaySFX(AudioManager.ENEMY_DIE_SFX);
                     Destroy(gameObject);
                 }
                 else if (tag == "Obstacle")
@@ -53,6 +55,7 @@ namespace Yashlan.enemy
                     if (_health <= 0)
                     {
                         _isHit = true;
+                        AudioManager.Instance.PlaySFX(AudioManager.ENEMY_DIE_SFX);
                         Destroy(gameObject);
                     }
                 }
