@@ -58,16 +58,13 @@ namespace Yashlan.bird
                     rb.bodyType = RigidbodyType2D.Dynamic;
                     rb.AddForce(Rigidbody.velocity * _boostForce);
                 }
-
-                for (int i = 0; i < birds.Count; i++)
-                {
-                    var pos_0 = new Vector3(transform.position.x, transform.position.y +  1.5f, transform.position.z);
-                    var pos_1 = new Vector3(transform.position.x, transform.position.y + -1.5f, transform.position.z);
+                
+                var pos_0 = new Vector3(transform.position.x, transform.position.y +  1.5f, transform.position.z);
+                var pos_1 = new Vector3(transform.position.x, transform.position.y + -1.5f, transform.position.z);
                     
-                    birds[0].transform.position = pos_0;
-                    birds[1].transform.position = pos_1;
-                }
-
+                birds[0].transform.position = pos_0;
+                birds[1].transform.position = pos_1;  
+        
                 Instantiate(SmokeEffect, birds[0].transform.position, Quaternion.identity);
                 Instantiate(SmokeEffect, birds[1].transform.position, Quaternion.identity);
 
